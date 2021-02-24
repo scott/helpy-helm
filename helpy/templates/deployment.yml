@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.image.name }}
+spec:
+  replicas: {{ .Values.appReplicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-{{ .Values.image.name }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}    
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.image.name }}
+    spec:
+      containers:
+      - name: {{ .Values.image.name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.pullPolicy }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1        
+        ports:
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}        
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-env
+        {{ if .Values.postgres.enabled }}
+        env:
+          - name: HELPY_POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-pw
+                key: postgres_password
+        {{ end }}          
+        resources: {{- toYaml .Values.resources.app | nindent 12 }}
+      - image: "{{ .Values.nginx.repository }}:{{ .Values.nginx.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: nginx
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}        
+        ports:
+        - containerPort: 80
+        resources: {{- toYaml .Values.resources.nginx | nindent 12 }}
+        volumeMounts:
+        - mountPath: /etc/nginx
+          name: conf
+      volumes:
+      - name: conf
+        configMap:
+          name: {{ .Release.Name }}-nginx

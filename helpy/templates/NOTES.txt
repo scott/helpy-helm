@@ -1,0 +1,15 @@
+
+{{ if eq .Values.image.repository "helpyio/helpypro" }}
+Welcome to Helpy Pro!
+{{ end }}
+{{ if eq .Values.image.repository "helpy/helpy" }}
+Welcome to Helpy CE!
+{{ end }}
+=====================
+
+Load your Instance with the following URL:
+{{ if .Values.loadBalancer.enabled }}
+http://localhost
+{{ else if .Values.ingress.enabled }}
+http://{{ .Values.appHostName }}
+{{ end }}

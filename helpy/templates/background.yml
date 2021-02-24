@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-background
+spec:
+  replicas: {{ .Values.workerReplicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0    
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-background
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}    
+      labels:
+        app: {{ .Release.Name }}-background
+    spec:
+      containers:
+      - name: background
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}        
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources: {{- toYaml .Values.resources.worker | nindent 12 }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-env
+        command: ["/bin/bash", "-l", "-c"]
+        args: ["RAILS_ENV=production bin/delayed_job run"]

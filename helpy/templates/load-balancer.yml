@@ -1,0 +1,20 @@
+{{ if .Values.loadBalancer.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.image.name }}lb
+  {{- if .Values.loadBalancer.annotations }}
+  annotations:
+    {{ toYaml .Values.podAnnotations | indent 8 }}
+  {{- end }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ .Release.Name }}-{{ .Values.image.name }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+  externalTrafficPolicy: Local
+{{ end }}

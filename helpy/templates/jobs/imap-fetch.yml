@@ -1,0 +1,27 @@
+{{ if .Values.imap.enabled }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-imap-fetch
+spec:
+  schedule: "*/{{ .Values.imap.frequencyInMinutes }} * * * *"
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ .Values.image.name }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: IfNotPresent
+            command:
+              - bundle
+              - exec
+              - rake
+              - helpy:fetch_mail
+            envFrom:
+              - configMapRef:
+                  name: {{ .Release.Name }}-env
+          restartPolicy: OnFailure
+{{ end }}

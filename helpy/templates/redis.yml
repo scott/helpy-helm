@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: {{ .Values.image.name }}
+spec:
+  ports:
+    - port: {{ .Values.redis.port }}
+      targetPort: {{ .Values.redis.port }}
+  selector:
+    app: {{ .Values.image.name }}
+    tier: cache
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: {{ .Values.image.name }}
+      tier: cache
+  template:
+    metadata:
+      name: redis
+      labels:
+        app: {{ .Values.image.name }}
+        tier: cache
+    spec:
+      containers:
+      - name: redis
+        image: "{{ .Values.redis.repository }}:{{ .Values.redis.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources: {{- toYaml .Values.resources.redis | nindent 12 }}
+        ports:
+        - containerPort: {{ .Values.redis.port }}

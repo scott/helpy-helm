@@ -1,0 +1,50 @@
+{{ if .Values.postgres.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app: helpypro
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: helpypro
+      tier: database
+  template:
+    metadata:
+      name: postgres
+      labels:
+        app: helpypro
+        tier: database
+    spec:
+      volumes:
+      - name: postgres-pv
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+      containers:
+      - name: postgres
+        image: "{{ .Values.postgres.repository }}:{{ .Values.postgres.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources: {{- toYaml .Values.resources.postgres | nindent 12 }}
+        env:
+        # - name: POSTGRES_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "db-user"
+        #       key: "username"
+        # - name: POSTGRES_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "db-user-pass"
+        #       key: "password"
+        - name: POSTGRES_DB
+          value: "helpy_production"
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/pgdata"
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: "/var/lib/postgresql/data"
+          name: postgres-pv
+{{ end }}

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: helpy
+description: Installs a production cluster of Helpy or Helpy Pro
+type: application
+version: 1.0.0
+appVersion: "3.2.7"
+home: https://helpy.io/
+sources:
+  - https://github.com/helpyio/helpy-helm

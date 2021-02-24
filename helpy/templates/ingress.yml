@@ -1,0 +1,29 @@
+{{ if .Values.ingress.enabled }}
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    {{ toYaml .Values.ingress.annotations | nindent 4 }}
+  name: {{ .Release.Name }}-{{ .Values.image.name }}-ingress
+  # namespace: default
+spec:
+  rules:
+  - host: {{ .Values.appHostName }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /      
+        backend:
+          service:
+            name: {{ .Release.Name }}-{{ .Values.image.name }}-svc
+            port: 
+              number: 80
+  {{ if .Values.enableSSL }}     
+  # This section is only required if TLS is to be enabled for the Ingress
+  tls:
+  - hosts:
+    - {{ .Values.appHostName }}
+    secretName: {{ .Values.image.name }}-ingress-tls
+  {{ end }}
+{{ end }}

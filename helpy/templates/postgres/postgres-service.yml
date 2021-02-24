@@ -1,0 +1,15 @@
+{{ if .Values.postgres.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels: 
+    app: helpypro
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: helpypro
+    tier: database
+{{ end }}
