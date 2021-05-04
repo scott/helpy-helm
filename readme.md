@@ -1,6 +1,6 @@
-# Helpy Helm charts
+# Helpy Helm charts (beta)
 
-This repository contains a Helm chart to launch Helpy Community Edition or Helpy Pro on a Kubernetes cluster.
+This repository contains a Helm chart to launch Helpy Community Edition or Helpy Pro on a Kubernetes cluster.  This is currently a beta release and is missing certain features and could have other issues.  Please report issues and submit PRs.
 
 ## Usage
 
@@ -81,26 +81,6 @@ To provide your own values, first copy values.yaml and add your customizations. 
 | Helpy Pro License- You can add your license here |
 | license.keyName               | This is the URL of the site you have licensed                 | yoursite.com |
 | license.key                   | The license key given to you by Helpy                         | your_key |
-
-
-
-## Enable SSL
-
-1. Install nginx ingress 
-
-```helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx```
-
-2. `helm repo update`
-
-3. ```helm install nginx-ingress ingress-nginx/ingress-nginx --set controller.publishService.enabled=true```
-
-4. kubectl create namespace cert-manager
-
-5. helm repo add jetstack https://charts.jetstack.io
-
-6. helm repo update
-
-7. helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.2.0 --set installCRDs=true
 
 
 
