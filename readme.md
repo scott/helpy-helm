@@ -6,16 +6,18 @@ This repository contains a Helm chart to launch Helpy Community Edition or Helpy
 
 To add the Helpy helm repository, use this command
 
-```helm repo add helpy https://scott.github.io/helpy-helm/```
-
+```
+helm repo add helpyio https://scott.github.io/helpy-helm/
+helm repo update
+```
 
 To run a Helpy Pro instance, use the following:
 
-```helm install release-name . ```
+```helm install release-name helpyio/helpy ```
 
 To run a Helpy CE instance, use the following:
 
-```helm install release-name . --set image.repository=helpy/helpy --set image.tag=kubernetes --set image.name=helpyce```
+```helm install release-name helpyio/helpy --set image.repository=helpy/helpy --set image.tag=kubernetes --set image.name=helpyce```
 
 
 ## Configuration
