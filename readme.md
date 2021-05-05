@@ -1,13 +1,17 @@
 # Helpy Helm charts (beta)
 
-This repository contains a Helm chart to launch Helpy Community Edition or Helpy Pro on a Kubernetes cluster.  This is currently a beta release and is missing certain features and could have other issues.  Please report issues and submit PRs.
+The Helpy Helm chart can be used to launch Helpy Community Edition or Helpy Pro on a Kubernetes cluster.  It is designed
+to work out of the box, but for production use, some customization of the configuration values is recommended.
+
+NOTE: This is currently a beta release and is missing certain features and could have other issues.  Please report issues and submit PRs.
 
 ## Usage
 
-To add the Helpy helm repository, use this command
+You will need a Kubernetes cluster and a system with Helm installed.  Then add the Helpy helm repository, 
+using this command:
 
 ```
-helm repo add helpyio https://scott.github.io/helpy-helm/
+helm repo add helpyio https://helm.helpy.io/helpy-helm/
 helm repo update
 ```
 
@@ -19,14 +23,11 @@ To run a Helpy CE instance, use the following:
 
 ```helm install release-name helpyio/helpy --set image.repository=helpy/helpy --set image.tag=kubernetes --set image.name=helpyce```
 
-
 ## Configuration
-The Helpy helm deployment takes many configuration values.
+This Helm chart is intended to be highly configurable for different needs:
 
-To provide your own values, first copy values.yaml and add your customizations.  Then run to use your customizations:
-
-```helm upgrade -f values.override.yaml release-name .```
-
+Configuring SSL: https://github.com/scott/helpy-helm/wiki/Enable-SSL
+Variables:
 
 | Variable                      | Description                                                   | Default Value
 |-------------------------------|---------------------------------------------------------------|----------|
@@ -82,7 +83,17 @@ To provide your own values, first copy values.yaml and add your customizations. 
 | license.keyName               | This is the URL of the site you have licensed                 | yoursite.com |
 | license.key                   | The license key given to you by Helpy                         | your_key |
 
+To provide your own values, you can either make a copy of the `values.yaml` file, or pass variables in the command line
+using the `-set` option. 
 
+To customize `values.yml`, first copy `values.yaml` to `values.override.yaml` and add your customizations.  Then run to use your customizations:
+
+```helm install -f values.override.yaml release-name helpyio/helpy```
+
+To pass values in the command line, install using
+
+```helm install release-name helpyio/helpy -s variable=value -s variable2=value```
 
 ## License  
-MIT License
+Copyright 2021, Helpy.io, Inc, Scott Miller and Contributors. This Helm chart is released under
+the MIT License.
