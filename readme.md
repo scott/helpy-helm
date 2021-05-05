@@ -11,7 +11,7 @@ You will need a Kubernetes cluster and a system with Helm installed.  Then add t
 using this command:
 
 ```
-helm repo add helpyio https://helm.helpy.io/helpy-helm/
+helm repo add helpyio https://scott.github.io/helpy-helm/
 helm repo update
 ```
 
