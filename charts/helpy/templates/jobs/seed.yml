@@ -25,7 +25,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: {{ .Values.image.name }}
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           command:
             - bundle

@@ -25,7 +25,7 @@ spec:
       containers:
       - name: postgres
         image: "{{ .Values.postgres.repository }}:{{ .Values.postgres.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: Always
         resources: {{- toYaml .Values.resources.postgres | nindent 12 }}
         env:
         # - name: POSTGRES_USER

@@ -85,16 +85,28 @@ postgres:
   user: 'postgres'
   password: 'helpy'
 
+# Minio
+# You can add a minio object store to your K8s cluser
+# 
+minio:
+  enabled: false
+  repository: minio/minio
+  tag: latest
+  capacity: 24Gi
+
 # Storage
 # Helpy uses an S3 based storage for user files, ticket attachments and images.
-# You can configure this here
+# If you have enabled minio for this, the supplied key and secret will be used
+# for the minio server.
 #
 storage:
-  remote: 'true'
+  remote: true
   key: minio
   secret: minio123
-  region: sfo2
-  endPoint: minio-service
+  region: us-east-1
+  host: minio-service
+  endPoint: http://localhost:9000
+  pathStyle: true
   bucketName: helpy-k8s
 
 # Mail Fetcher

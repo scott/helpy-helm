@@ -25,7 +25,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: helpypro
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           command:
             - bundle

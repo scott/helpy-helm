@@ -22,7 +22,7 @@ spec:
       containers:
       - name: {{ .Values.image.name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.pullPolicy }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         readinessProbe:
           httpGet:
             path: /
