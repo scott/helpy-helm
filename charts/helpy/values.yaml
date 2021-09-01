@@ -3,9 +3,9 @@
 # also determines whether or not to launch a Postgres DB into the cluster.
 # NOTE: it is recommended you use a DBAAS for production workloads
 #
-appReplicaCount: 2
+appReplicaCount: 1
 workerReplicaCount: 1
-appHostName: 'help.at_your.site'
+appHostName: 'help.atyour.site'
 enableSSL: false
 sslEmail: 'administrator@your.site'
 
@@ -49,6 +49,8 @@ rails:
   pumaConcurency: '1'
   podRam: '1024'
   secretKey: 'your_secret'
+  sessionDuration: 20
+  sessionStore: 'cookie'
 
 # Redis config
 # Helpy uses an internal redis in memory cache. You can change
@@ -124,8 +126,8 @@ imap:
 # Pro without a license code.
 # 
 license:
-  keyName: 'yoursite'
-  key: 'yourlicense'
+  keyName: 
+  key: 
 
 podSecurityContext:
   {}

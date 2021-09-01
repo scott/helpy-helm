@@ -54,6 +54,9 @@ Variables:
 | rails.pumaConcurency          |                                                               | '1' |
 | rails.podRam                  | How much RAM to give each app POD in the cluster              | '2048' |
 | rails.secretKey               | The secret key Rails uses                                     | 'your_secret_here' |
+| rails.sessionDuration         | PRO Only. The numnber of minutes the session is kept alive    | 20
+| rails.sessionStore            | PRO Only. The rails session store to use.                     | 'cookie'
+| rails.secretKey               | The secret key Rails uses                                     | 'your_secret_here' |
 | Redis Configuration           |
 | redis.url                     | The URL to your redis service                                 | 'redis://redis.default.svc.cluster.local:6379/0/cache' |
 | redis.port                    | The Port to your redis service                                | '6379' |
