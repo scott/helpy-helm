@@ -3,6 +3,19 @@ entries:
   helpy:
   - apiVersion: v2
     appVersion: 3.2.7
+    created: "2021-10-07T19:56:09.017421342Z"
+    description: Installs a production cluster of Helpy or Helpy Pro
+    digest: 74c24dc8e77300d4b2f0f582f82ca727c68bbabdf7352865c55d79f12720e941
+    home: https://helpy.io/
+    name: helpy
+    sources:
+    - https://github.com/helpyio/helpy-helm
+    type: application
+    urls:
+    - https://github.com/scott/helpy-helm/releases/download/helpy-1.2.1/helpy-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
+    appVersion: 3.2.7
     created: "2021-09-01T21:15:53.372813094Z"
     description: Installs a production cluster of Helpy or Helpy Pro
     digest: 8dd237aeb130aea226dc315b5ec34b164c50d9c70672885ed15d01cd8ed96a84
@@ -53,4 +66,4 @@ entries:
     urls:
     - helpy-1.0.0.tgz
     version: 1.0.0
-generated: "2021-09-01T21:15:53.372831295Z"
+generated: "2021-10-07T19:56:09.017671046Z"
