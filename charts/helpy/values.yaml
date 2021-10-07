@@ -38,6 +38,7 @@ ingress:
 loadBalancer:
   enabled: true
   annotations: {}
+  externalTrafficPolicy: Cluster
 
 # Rails App Server configuration
 # Sets a number of app server configs

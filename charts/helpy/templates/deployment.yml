@@ -27,9 +27,11 @@ spec:
           httpGet:
             path: /
             port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          successThreshold: 1        
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 2
+          timeoutSeconds: 10    
         ports:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}        
