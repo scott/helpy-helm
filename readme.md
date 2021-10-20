@@ -27,7 +27,8 @@ To run a Helpy CE instance, use the following:
 This Helm chart is intended to be highly configurable for different needs:
 
 Configuring SSL: https://github.com/scott/helpy-helm/wiki/Enable-SSL
-Variables:
+
+### Variables:
 
 | Variable                      | Description                                                   | Default Value
 |-------------------------------|---------------------------------------------------------------|----------|
@@ -47,15 +48,16 @@ Variables:
 | ingress.tls
 | loadBalancer.enabled          | Whether or not to use a LB                                    |  true   |
 | loadBalancer.annotations      | Annotations to pass to the Load Balancer                      | {} |
+| loadBalancer.externalTrafficPolicy | The type of load balancer                                | Cluster |
 | Helpy Pod/Rails configurations| Use these settings to adjust how the app runs and resources expected in the pod | |
 | rails.railsEnv                | The environment to run the app in                             | production |
 | rails.logToStandardOut        |                                                               | true |
 | rails.serveStaticFiles        | Whether or not to serve static files.                         | false |
 | rails.pumaConcurency          |                                                               | '1' |
 | rails.podRam                  | How much RAM to give each app POD in the cluster              | '2048' |
-| rails.secretKey               | The secret key Rails uses                                     | 'your_secret_here' |
-| rails.sessionDuration         | PRO Only. The numnber of minutes the session is kept alive    | 20
-| rails.sessionStore            | PRO Only. The rails session store to use.                     | 'cookie'
+| rails.secretKey               | The secret key Rails uses. Uses a random string by default    | '' |
+| rails.sessionDuration         | PRO Only. The number of minutes the session is kept alive     | 20 |
+| rails.sessionStore            | PRO Only. The rails session store to use.                     | 'cookie' |
 | rails.secretKey               | The secret key Rails uses                                     | 'your_secret_here' |
 | Redis Configuration           |
 | redis.url                     | The URL to your redis service                                 | 'redis://redis.default.svc.cluster.local:6379/0/cache' |
