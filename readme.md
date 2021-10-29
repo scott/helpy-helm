@@ -55,7 +55,7 @@ Configuring SSL: https://github.com/scott/helpy-helm/wiki/Enable-SSL
 | rails.serveStaticFiles        | Whether or not to serve static files.                         | false |
 | rails.pumaConcurency          |                                                               | '1' |
 | rails.podRam                  | How much RAM to give each app POD in the cluster              | '2048' |
-| rails.secretKey               | The secret key Rails uses. Uses a random string by default    | '' |
+| rails.secretKey               | The secret key Rails uses. Uses a random string by default    | Commented out by default |
 | rails.sessionDuration         | PRO Only. The number of minutes the session is kept alive     | 20 |
 | rails.sessionStore            | PRO Only. The rails session store to use.                     | 'cookie' |
 | rails.secretKey               | The secret key Rails uses                                     | 'your_secret_here' |
