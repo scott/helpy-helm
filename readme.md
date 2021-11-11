@@ -27,6 +27,10 @@ To run a Helpy CE instance, use the following:
 This Helm chart is intended to be highly configurable for different needs:
 
 Configuring SSL: https://github.com/scott/helpy-helm/wiki/Enable-SSL
+Set up a production database: https://github.com/scott/helpy-helm/wiki/Set-up-a-Production-DB
+Use S3 for object storage: https://github.com/scott/helpy-helm/wiki/Use-S3-or-DigitalOcean-Object-Storage
+
+Full Wiki; https://github.com/scott/helpy-helm/wiki
 
 ### Variables:
 
